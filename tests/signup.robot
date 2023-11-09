@@ -3,6 +3,9 @@ Documentation    Suite de testes de cadastro de dog walker
 
 Resource        ../resources/base.resource
 
+Test Setup           Start session
+Test Teardown        Finish session
+
 *** Test Cases ***
 Deve poder cadastrar um novo dog walker
     # Massa de dados:
@@ -16,14 +19,12 @@ Deve poder cadastrar um novo dog walker
     ${addressDistrict}  Set Variable    Itaim Bibi
     ${addressCityUf}    Set Variable    São Paulo/SP
     ${cnh}              Set Variable    toretto.jpg
-
-    Start session    
+ 
     Go to signup page
     Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
     # Sleep      10
     Submit signup form
     Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
-    Finish session
 
 Não deve cadastrar se os campos obrigatórios não forem preenchidos
     [Tags]                required
@@ -39,8 +40,7 @@ Não deve cadastrar se os campos obrigatórios não forem preenchidos
     # ${addressDistrict}  Set Variable    Itaim Bibi
     # ${addressCityUf}    Set Variable    São Paulo/SP
     # ${cnh}              Set Variable    toretto.jpg
-
-    Start session    
+ 
     Go to signup page
     # Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
     # Fill signup form    ${dog_walker}
@@ -55,8 +55,6 @@ Não deve cadastrar se os campos obrigatórios não forem preenchidos
     Alert should be         Informe um número maior que zero
     Alert should be         Adcione um documento com foto (RG ou CHN)
 
-    Finish session
-
 Não deve cadastrar se o cpf for incorreto
     [Tags]        cpf_invalido
     # Massa de dados:
@@ -70,14 +68,12 @@ Não deve cadastrar se o cpf for incorreto
     ${addressDistrict}  Set Variable    Itaim Bibi
     ${addressCityUf}    Set Variable    São Paulo/SP
     ${cnh}              Set Variable    toretto.jpg
-
-    Start session    
+  
     Go to signup page
     Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
     # Sleep      10
     Submit signup form
-    Alert should be           CPF inválido    
-    Finish session
+    Alert should be           CPF inválido
 
     
 
