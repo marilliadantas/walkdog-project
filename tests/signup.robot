@@ -17,10 +17,11 @@ Deve poder cadastrar um novo dog walker
     ${addressCityUf}    Set Variable    São Paulo/SP
     ${cnh}              Set Variable    toretto.jpg
 
+    Start session    
     Go to signup page
     Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
-    Sleep      10
+    # Sleep      10
     Submit signup form
     Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
-
+    Finish session
 

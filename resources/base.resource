@@ -13,3 +13,6 @@ Start session
 
     Wait For Elements State        css=h1 >> text=Cuidado e diversão em cada passo
     ...         visible     5
+    
+Finish session
+    Take Screenshot     fullPage=True
