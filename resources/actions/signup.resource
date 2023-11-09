@@ -1,26 +1,7 @@
 *** Settings ***
-Documentation    Suite de testes de cadastro de dog walker
+Documentation        Ações, steps e elementos da funcionalidade de cadastro
 
-Library    Browser
-
-*** Test Cases ***
-Deve poder cadastrar um novo dog walker
-    # Massa de dados:
-    ${name}             Set Variable    Fernando Papito
-    ${email}            Set Variable    papito@gmail.com
-    ${cpf}              Set Variable    00000014141
-    ${cep}              Set Variable    04534011
-    ${addressNumber}    Set Variable    1000
-    ${addressDetails}   Set Variable    Apto 28
-    ${addressStreet}    Set Variable    Rua Joaquim Floriano
-    ${addressDistrict}  Set Variable    Itaim Bibi
-    ${addressCityUf}    Set Variable    São Paulo/SP
-    ${cnh}              Set Variable    toretto.jpg
-
-    Go to signup page
-    Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
-    Submit signup form
-    Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
+Library        Browser
 
 *** Keywords ***
 Go to signup page
@@ -46,7 +27,7 @@ Fill signup form
     Fill Text    css=input[name=addressNumber]                   ${addressNumber}
     Fill Text    css=input[name=addressDetails]                  ${addressDetails}  
 
-    Upload File By Selector    css=input[type=file]              ${EXECDIR}/${cnh}
+    Upload File By Selector    css=input[type=file]              ${EXECDIR}/resources/fixtures/${cnh}
 
 Submit signup form
     Click                      css=.button-register  
@@ -57,4 +38,3 @@ Popup should be
     Get Text                   css=.swal2-html-container     equal    Recebemos o seu cadastro e em breve retornaremos o contato.
 
     # Sleep    5
-
