@@ -1,14 +1,20 @@
 *** Settings ***
 Documentation        Arquivo principal do projeto
 
-Library        Browser
+Library            Browser
 
-Resource        actions/signup.resource
+Resource           env.resource
+Resource           actions/signup.resource
 
 
 *** Keywords ***
 Start session
-    New Browser    browser=chromium    headless=False
+    # New Browser    browser=chromium    headless=False
+    # New Browser    browser=firefox    headless=False
+    # New Browser    browser=webkit    headless=False
+
+    New Browser    browser=${BROWSER}    headless=False
+
     New Page    https://walkdog.vercel.app
 
     Wait For Elements State        css=h1 >> text=Cuidado e diversão em cada passo

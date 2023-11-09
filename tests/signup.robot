@@ -8,20 +8,22 @@ Test Teardown        Finish session
 
 *** Test Cases ***
 Deve poder cadastrar um novo dog walker
-    # Massa de dados:
-    ${name}             Set Variable    Fernando Papito
-    ${email}            Set Variable    papito@gmail.com
-    ${cpf}              Set Variable    00000014141
-    ${cep}              Set Variable    04534011
-    ${addressNumber}    Set Variable    1000
-    ${addressDetails}   Set Variable    Apto 28
-    ${addressStreet}    Set Variable    Rua Joaquim Floriano
-    ${addressDistrict}  Set Variable    Itaim Bibi
-    ${addressCityUf}    Set Variable    São Paulo/SP
-    ${cnh}              Set Variable    toretto.jpg
+    [Tags]        smoke
+
+    ${dog_walker}            Create Dictionary
+    ...    name=Fernando Papito
+    ...    email=papito@gmail.com
+    ...    cpf=00000014141
+    ...    cep=04534011
+    ...    street=Rua Joaquim Floriano
+    ...    district=Itaim Bibi
+    ...    city_uf=São Paulo/SP
+    ...    number=1000
+    ...    details=Apto 28
+    ...    cnh=toretto.jpg
  
     Go to signup page
-    Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
+    Fill signup form     ${dog_walker}
     # Sleep      10
     Submit signup form
     Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
@@ -29,23 +31,21 @@ Deve poder cadastrar um novo dog walker
 Não deve cadastrar se os campos obrigatórios não forem preenchidos
     [Tags]                required
 
-    # ${dog_walker}       Create Dictionary
-    # ${name}             Set Variable    Fernando Papito
-    # ${email}            Set Variable    papito@gmail.com
-    # ${cpf}              Set Variable    00000014141
-    # ${cep}              Set Variable    04534011
-    # ${addressNumber}    Set Variable    1000
-    # ${addressDetails}   Set Variable    Apto 28
-    # ${addressStreet}    Set Variable    Rua Joaquim Floriano
-    # ${addressDistrict}  Set Variable    Itaim Bibi
-    # ${addressCityUf}    Set Variable    São Paulo/SP
-    # ${cnh}              Set Variable    toretto.jpg
- 
-    Go to signup page
-    # Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
-    # Fill signup form    ${dog_walker}
-    # Sleep      10
+    ${dog_walker}            Create Dictionary
+    # ...    name=Fernando Papito
+    # ...    email=papito@gmail.com
+    # ...    cpf=00000014141
+    # ...    cep=04534011
+    # ...    street=Rua Joaquim Floriano
+    # ...    district=Itaim Bibi
+    # ...    city_uf=São Paulo/SP
+    # ...    number=1000
+    # ...    details=Apto 28
+    # ...    cnh=toretto.jpg
 
+    Go to signup page
+    # Fill signup form     ${dog_walker}
+    # Sleep      10
     Submit signup form
 
     Alert should be         Informe o seu nome completo
@@ -56,25 +56,69 @@ Não deve cadastrar se os campos obrigatórios não forem preenchidos
     Alert should be         Adcione um documento com foto (RG ou CHN)
 
 Não deve cadastrar se o cpf for incorreto
-    [Tags]        cpf_invalido
-    # Massa de dados:
-    ${name}             Set Variable    Fernando Papito
-    ${email}            Set Variable    papito@gmail.com
-    ${cpf}              Set Variable    000000141aa
-    ${cep}              Set Variable    04534011
-    ${addressNumber}    Set Variable    1000
-    ${addressDetails}   Set Variable    Apto 28
-    ${addressStreet}    Set Variable    Rua Joaquim Floriano
-    ${addressDistrict}  Set Variable    Itaim Bibi
-    ${addressCityUf}    Set Variable    São Paulo/SP
-    ${cnh}              Set Variable    toretto.jpg
+    [Tags]        cpf_invalid
+    
+    ${dog_walker}            Create Dictionary
+    ...    name=Fernando Papito
+    ...    email=papito@gmail.com
+    ...    cpf=000000141aaa
+    ...    cep=04534011
+    ...    street=Rua Joaquim Floriano
+    ...    district=Itaim Bibi
+    ...    city_uf=São Paulo/SP
+    ...    number=1000
+    ...    details=Apto 28
+    ...    cnh=toretto.jpg
   
     Go to signup page
-    Fill signup form    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
+    Fill signup form     ${dog_walker}
     # Sleep      10
     Submit signup form
     Alert should be           CPF inválido
 
+Deve poder cadastrar um novo dog walker que sabe cuidar de pets
+    [Tags]        aservice
     
+    ${dog_walker}            Create Dictionary
+    ...    name=Dominic Toretto
+    ...    email=toretto@gmail.com
+    ...    cpf=00000014141
+    ...    cep=04534011
+    ...    street=Rua Joaquim Floriano
+    ...    district=Itaim Bibi
+    ...    city_uf=São Paulo/SP
+    ...    number=1000
+    ...    details=Apto 28
+    ...    cnh=toretto.jpg
+    
+    Go to signup page
+    Fill signup form     ${dog_walker}
+    # Sleep      5
+    Additional Service    Cuidar
+    Submit signup form
+    Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
+
+Deve poder cadastrar um novo dog walker que sabe adestrar pets
+    [Tags]        aservice
+    
+    ${dog_walker}            Create Dictionary
+    ...    name=Papito Fernando
+    ...    email=papito@yahoo.com
+    ...    cpf=00000014141
+    ...    cep=04534011
+    ...    street=Rua Joaquim Floriano
+    ...    district=Itaim Bibi
+    ...    city_uf=São Paulo/SP
+    ...    number=1000
+    ...    details=Apto 28
+    ...    cnh=toretto.jpg
+
+    Go to signup page
+    Fill signup form     ${dog_walker}
+    # Sleep      5
+    Additional Service    Adestrar
+    Submit signup form
+    Popup should be    Recebemos o seu cadastro e em breve retornaremos o contato.
+
 
 

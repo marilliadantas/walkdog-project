@@ -11,22 +11,28 @@ Go to signup page
     Get Text    form h1     equal    Faça seu cadastro
 
 Fill signup form
-    [Arguments]    ${name}    ${email}    ${cpf}    ${cep}    ${addressStreet}     ${addressDistrict}     ${addressCityUf}    ${addressNumber}    ${addressDetails}    ${cnh}
-    Fill Text    css=input[name=name]                            ${name}
-    Fill Text    css=input[name=email]                           ${email}
-    Fill Text    css=input[name=cpf]                             ${cpf}
-    Fill Text    css=input[name=cep]                             ${cep}
+    [Arguments]        ${dog_walker}
+    Fill Text    css=input[name=name]                            ${dog_walker}[name]
+    Fill Text    css=input[name=email]                           ${dog_walker}[email]
+    Fill Text    css=input[name=cpf]                             ${dog_walker}[cpf]
+    Fill Text    css=input[name=cep]                             ${dog_walker}[cep]
 
-    Click        css=input[type=button][value$=CEP]    
+    Click        css=input[type=button][value$=CEP]
 
-    Get Property    css=input[name=addressStreet]       value    equal    ${addressStreet}
-    Get Property    css=input[name=addressDistrict]     value    equal    ${addressDistrict}
-    Get Property    css=input[name=addressCityUf]       value    equal    ${addressCityUf}
+    Get Property    css=input[name=addressStreet]       value    equal        ${dog_walker}[street]
+    Get Property    css=input[name=addressDistrict]     value    equal        ${dog_walker}[district]
+    Get Property    css=input[name=addressCityUf]       value    equal        ${dog_walker}[city_uf]
 
-    Fill Text    css=input[name=addressNumber]                   ${addressNumber}
-    Fill Text    css=input[name=addressDetails]                  ${addressDetails}  
+    Fill Text    css=input[name=addressNumber]                   ${dog_walker}[number]
+    Fill Text    css=input[name=addressDetails]                  ${dog_walker}[details] 
 
-    Upload File By Selector    css=input[type=file]              ${EXECDIR}/resources/fixtures/${cnh}
+    Upload File By Selector    css=input[type=file]              ${EXECDIR}/resources/fixtures/${dog_walker}[cnh]
+
+Additional Service
+    [Arguments]        ${additional_service}
+
+    Click        xpath=//span[text()="${additional_service}"]/..
+    # Take Screenshot     selector=//span[text()="${dog_walker}[additional_service]"]/..
 
 Submit signup form
     Click                      css=.button-register  
