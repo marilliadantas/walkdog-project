@@ -32,8 +32,14 @@ Submit signup form
     Click                      css=.button-register  
 
 Popup should be
-    [Arguments]    ${expected_text}
+    [Arguments]        ${expected_text}
     Wait For Elements State    css=.swal2-html-container     visible    5
     Get Text                   css=.swal2-html-container     equal    Recebemos o seu cadastro e em breve retornaremos o contato.
 
     # Sleep    5
+
+Alert should be
+    [Arguments]        ${expetecd_text}
+
+    Wait For Elements State        css=.alert-error >> text=${expetecd_text}
+    ...    visible        5
